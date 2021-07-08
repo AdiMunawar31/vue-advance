@@ -1,0 +1,46 @@
+<template>
+  <div class="flex bg-gray-100 py-24 justify-center">
+    <div class="p-12 text-center max-w-2xl">
+      <div class="md:text-3xl text-3xl font-bold">Want to discover more ?</div>
+      <div class="text-xl font-normal mt-4">
+        {{ data.title }}
+      </div>
+      <div class="mt-6 flex justify-center h-12 relative">
+        <div
+          class="
+            flex
+            shadow-md
+            font-medium
+            absolute
+            py-2
+            px-4
+            text-green-100
+            cursor-pointer
+            bg-blue-700
+            rounded
+            text-lg
+            tr-mt
+            svelte-jqwywd
+          "
+        >
+          <router-link to="/about">About Me</router-link>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref } from "vue";
+
+export default {
+  async setup() {
+    const data = ref("");
+
+    const result = await fetch("https://jsonplaceholder.typicode.com/posts/42");
+    data.value = await result.json();
+
+    return { data };
+  },
+};
+</script>
