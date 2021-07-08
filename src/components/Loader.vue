@@ -1,20 +1,21 @@
 <template>
-  <div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
+  <div class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-20">
     <span
       class="
         text-blue-700
         opacity-75
         top-1/2
-        my-0
+        my-auto
         mx-auto
-        block
+        flex
+        justify-center
+        align-center
         relative
         w-0
         h-0
       "
-      style="top: 50%"
     >
-      <i class="fas fa-circle-notch fa-spin fa-5x"></i>
+      <i class="fas fa-circle-notch fa-spin fa-3x"></i>
     </span>
   </div>
 </template>
