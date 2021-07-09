@@ -175,7 +175,20 @@ export default {
       localStorage.setItem("LOGIN", false);
       localStorage.setItem("NAME", name.value);
 
-      route.push({ name: "Login" });
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, logout it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Logout Success!", "Your has been logout.", "success"),
+            route.push({ name: "Login" });
+        }
+      });
     };
 
     return { logout, name };
