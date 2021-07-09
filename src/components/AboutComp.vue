@@ -130,7 +130,6 @@
                     focus:outline-none
                     focus:shadow-outline
                     focus:border-blue-200
-                    text-opacity-25
                   "
                   disabled
                 />
@@ -153,7 +152,6 @@
                     focus:outline-none
                     focus:shadow-outline
                     focus:border-blue-200
-                    text-opacity-25
                   "
                   disabled
                 />
@@ -182,7 +180,6 @@
                   focus:outline-none
                   focus:shadow-outline
                   focus:border-blue-200
-                  text-opacity-25
                 "
                 disabled
               >
@@ -213,7 +210,6 @@
                   focus:outline-none
                   focus:shadow-outline
                   focus:border-blue-200
-                  text-opacity-25
                 "
                 disabled
               />
@@ -235,7 +231,6 @@
                   focus:outline-none
                   focus:shadow-outline
                   focus:border-blue-200
-                  text-opacity-25
                 "
                 disabled
               />
