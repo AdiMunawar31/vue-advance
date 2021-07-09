@@ -38,7 +38,7 @@
         w-full
         flex-grow
         lg:flex
-        lg:items-center
+        lg:justify-around
         lg:w-auto
         lg:px-3
         px-8
@@ -50,7 +50,7 @@
         <router-link
           to="/"
           class="
-            block
+            flex
             mt-4
             lg:inline-block
             lg:mt-0
@@ -65,9 +65,10 @@
           Home
         </router-link>
         <router-link
+          exact-active-class="active"
           to="/about"
           class="
-            block
+            flex
             mt-4
             lg:inline-block
             lg:mt-0
@@ -79,12 +80,12 @@
             mr-2
           "
         >
-          About
+          About Adi
         </router-link>
         <router-link
           to="/post"
           class="
-            block
+            flex
             mt-4
             lg:inline-block
             lg:mt-0
@@ -139,6 +140,45 @@
           </svg>
         </button>
       </div>
+      <button
+        class="
+          block
+          mt-4
+          lg:inline-block
+          lg:mt-0
+          text-white
+          px-4
+          py-2
+          rounded
+          bg-blue-700
+          ml-5
+        "
+        @click="logout"
+      >
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
     </div>
   </nav>
 </template>
+
+<script>
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+
+export default {
+  setup() {
+    const route = useRouter();
+
+    const name = ref("");
+
+    const logout = () => {
+      localStorage.setItem("LOGIN", false);
+      localStorage.setItem("NAME", name.value);
+
+      route.push({ name: "Login" });
+    };
+
+    return { logout, name };
+  },
+};
+</script>

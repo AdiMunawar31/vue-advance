@@ -186,7 +186,8 @@
                 "
                 disabled
               >
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem natus nobis odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, eveniet fugiat? Explicabo assumenda dignissimos quisquam perspiciatis corporis sint commodi cumque rem tempora!</textarea
+“You do not need to be great to start something. Do it now and do not ever put off because the chance may not come twice.”
+</textarea
               >
             </div>
 
