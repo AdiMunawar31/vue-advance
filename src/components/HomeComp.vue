@@ -28,17 +28,21 @@
           <router-link to="/about">About Adi</router-link>
         </div>
       </div>
+      <p>{{ credentials.gender }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   async setup() {
     const data = ref("");
     const name = ref("");
+
+    const store = useStore();
 
     const user = localStorage.getItem("NAME");
     name.value = user;
@@ -46,7 +50,11 @@ export default {
     const result = await fetch("https://jsonplaceholder.typicode.com/posts/42");
     data.value = await result.json();
 
-    return { data, name };
+    const credentials = computed(() => {
+      return store.state.credential;
+    });
+
+    return { data, name, credentials };
   },
 };
 </script>

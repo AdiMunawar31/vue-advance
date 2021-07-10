@@ -19,10 +19,10 @@
     <div class="w-full flex justify-around text-center focus:outline-none p-1">
       <ul v-for="menu in navMenu" :key="menu.name" :name="menu.name">
         <li @onclick="menus">
-          <span :class="menu.icon"></span>
+          <span :class="url"></span>
 
           <div class="text-gray-500 group-hover:text-yellow-500">
-            <router-link :to="menu.link">{{ menu.name }}</router-link>
+            <a :href="menu.link">{{ menu.name }}</a>
           </div>
         </li>
       </ul>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { reactive, ref } from "vue";
+import { reactive, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
@@ -47,28 +47,36 @@ export default {
       {
         name: "Home",
         icon: "fas fa-home text-lg text-blue-700",
+        iconA: "fas fa-home text-lg text-black-700",
         link: "/",
       },
       {
         name: "About",
         icon: "fas fa-user-graduate text-lg text-blue-700",
+        iconA: "fas fa-user-graduate text-lg text-black-700",
         link: "/about",
       },
       {
         name: "Post",
         icon: "fas fa-server text-lg text-blue-700",
+        iconA: "fas fa-server text-lg text-black-700",
         link: "/post",
       },
     ]);
 
     const route = useRouter();
 
+    const url = computed(() => {
+      if (navMenu == route.path) {
+        return navMenu.iconA;
+      } else {
+        return navMenu.icon;
+      }
+    });
+
     const name = ref("");
 
     const logout = () => {
-      localStorage.setItem("LOGIN", false);
-      localStorage.setItem("NAME", name.value);
-
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -79,8 +87,12 @@ export default {
         confirmButtonText: "Yes, logout it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("Logout Success!", "Your has been logout.", "success"),
-            route.push({ name: "Login" });
+          route.push({ name: "Login" });
+          localStorage.setItem("LOGIN", false);
+          localStorage.setItem("NAME", name.value);
+          Swal.fire("Logout Success!", "Your has been logout.", "success");
+        } else {
+          return false;
         }
       });
     };
@@ -88,6 +100,7 @@ export default {
     return {
       navMenu,
       logout,
+      url,
     };
   },
 };

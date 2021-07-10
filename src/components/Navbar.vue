@@ -65,7 +65,6 @@
           Home
         </router-link>
         <router-link
-          exact-active-class="active"
           to="/about"
           class="
             flex
@@ -163,7 +162,7 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 export default {
   setup() {
@@ -171,9 +170,6 @@ export default {
     const route = useRouter();
 
     const logout = () => {
-      localStorage.setItem("LOGIN", false);
-      localStorage.setItem("NAME", name.value);
-
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -184,11 +180,23 @@ export default {
         confirmButtonText: "Yes, logout it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("Logout Success!", "Your has been logout.", "success"),
-            route.push({ name: "Login" });
+          route.push({ name: "Login" });
+          Swal.fire("Logout Success!", "Your has been logout.", "success");
+          localStorage.setItem("LOGIN", false);
+          localStorage.setItem("NAME", name.value);
+        } else {
+          return false;
         }
       });
+
+      // if (isLogout) {
+      //   route.push({ name: "Login" });
+      // } else {
+      //   return false;
+      // }
     };
+
+    const nav = computed(() => {});
 
     return { logout, name };
   },

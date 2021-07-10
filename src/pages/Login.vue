@@ -30,6 +30,7 @@
                   <input
                     type="text"
                     v-model="name"
+                    required
                     class="
                       px-3
                       py-3
@@ -81,16 +82,20 @@
 <script>
 import { useRouter } from "vue-router";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   setup() {
     const route = useRouter();
+    const store = useStore();
 
     const name = ref("");
 
     const login = () => {
       localStorage.setItem("LOGIN", true);
       localStorage.setItem("NAME", name.value);
+
+      store.dispatch("getCredential");
 
       route.push({ name: "Home" });
     };
