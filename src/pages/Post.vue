@@ -1,7 +1,9 @@
 <template>
   <Suspense>
     <template #default>
-      <DataPost />
+      <keep-alive>
+        <DataPost />
+      </keep-alive>
     </template>
 
     <template #fallback>

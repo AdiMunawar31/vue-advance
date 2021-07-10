@@ -19,18 +19,20 @@
     <div class="w-full flex justify-around text-center focus:outline-none p-1">
       <ul v-for="menu in navMenu" :key="menu.name" :name="menu.name">
         <li @onclick="menus">
-          <span :class="url"></span>
+          <router-link :to="menu.link">
+            <span :class="menu.icon"></span>
 
-          <div class="text-gray-500 group-hover:text-yellow-500">
-            <a :href="menu.link">{{ menu.name }}</a>
-          </div>
+            <div class="text-gray-500 group-hover:text-yellow-500">
+              {{ menu.name }}
+            </div>
+          </router-link>
         </li>
       </ul>
       <ul>
         <li @click="logout">
           <span class="fas fa-sign-out-alt text-lg text-blue-700"></span>
 
-          <div class="text-gray-500 group-hover:text-yellow-500">Logout</div>
+          <div class="text-gray-500 group-hover:text-yellow-500">Sign Out</div>
         </li>
       </ul>
     </div>
@@ -38,7 +40,7 @@
 </template>
 
 <script>
-import { reactive, ref, computed } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
@@ -47,32 +49,21 @@ export default {
       {
         name: "Home",
         icon: "fas fa-home text-lg text-blue-700",
-        iconA: "fas fa-home text-lg text-black-700",
         link: "/",
       },
       {
         name: "About",
         icon: "fas fa-user-graduate text-lg text-blue-700",
-        iconA: "fas fa-user-graduate text-lg text-black-700",
         link: "/about",
       },
       {
         name: "Post",
         icon: "fas fa-server text-lg text-blue-700",
-        iconA: "fas fa-server text-lg text-black-700",
         link: "/post",
       },
     ]);
 
     const route = useRouter();
-
-    const url = computed(() => {
-      if (navMenu == route.path) {
-        return navMenu.iconA;
-      } else {
-        return navMenu.icon;
-      }
-    });
 
     const name = ref("");
 
@@ -84,13 +75,13 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, logout it!",
+        confirmButtonText: "Yes, sign Out it!",
       }).then((result) => {
         if (result.isConfirmed) {
           route.push({ name: "Login" });
           localStorage.setItem("LOGIN", false);
           localStorage.setItem("NAME", name.value);
-          Swal.fire("Logout Success!", "Your has been logout.", "success");
+          Swal.fire("Sign Out Success!", "Your has been Sign Out.", "success");
         } else {
           return false;
         }
@@ -100,7 +91,6 @@ export default {
     return {
       navMenu,
       logout,
-      url,
     };
   },
 };

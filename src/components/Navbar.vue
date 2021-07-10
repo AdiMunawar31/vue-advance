@@ -154,7 +154,7 @@
         "
         @click="logout"
       >
-        <i class="fas fa-sign-out-alt"></i> Logout
+        <i class="fas fa-sign-out-alt"></i> Sign Out
       </button>
     </div>
   </nav>
@@ -177,11 +177,11 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, logout it!",
+        confirmButtonText: "Yes, Sign Out!",
       }).then((result) => {
         if (result.isConfirmed) {
           route.push({ name: "Login" });
-          Swal.fire("Logout Success!", "Your has been logout.", "success");
+          Swal.fire("Sign Out Success!", "Your has been Sign Out.", "success");
           localStorage.setItem("LOGIN", false);
           localStorage.setItem("NAME", name.value);
         } else {

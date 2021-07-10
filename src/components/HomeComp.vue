@@ -28,7 +28,7 @@
           <router-link to="/about">About Adi</router-link>
         </div>
       </div>
-      <p>{{ credentials.gender }}</p>
+      <pre class="flex flex-wrap justify-center text-xs">{{ credential }}</pre>
     </div>
   </div>
 </template>
@@ -43,6 +43,9 @@ export default {
     const name = ref("");
 
     const store = useStore();
+    const credential = computed(() => {
+      return store.state.credential;
+    });
 
     const user = localStorage.getItem("NAME");
     name.value = user;
@@ -50,11 +53,7 @@ export default {
     const result = await fetch("https://jsonplaceholder.typicode.com/posts/42");
     data.value = await result.json();
 
-    const credentials = computed(() => {
-      return store.state.credential;
-    });
-
-    return { data, name, credentials };
+    return { data, name, credential };
   },
 };
 </script>

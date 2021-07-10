@@ -30,7 +30,6 @@
                   <input
                     type="text"
                     v-model="name"
-                    required
                     class="
                       px-3
                       py-3
@@ -92,12 +91,16 @@ export default {
     const name = ref("");
 
     const login = () => {
-      localStorage.setItem("LOGIN", true);
-      localStorage.setItem("NAME", name.value);
+      if (name.value == "") {
+        Swal.fire("Please Input Your Name!");
+      } else {
+        localStorage.setItem("LOGIN", true);
+        localStorage.setItem("NAME", name.value);
 
-      store.dispatch("getCredential");
+        store.dispatch("getCredential");
 
-      route.push({ name: "Home" });
+        route.push({ name: "Home" });
+      }
     };
 
     return { login, name };
