@@ -34,6 +34,7 @@
         </div>
       </router-link>
     </div>
+
     <main class="mt-10">
       <div class="mb-4 md:mb-0 w-full mx-auto relative">
         <div class="px-4 lg:px-0">
@@ -76,6 +77,63 @@
           <p class="pb-6">
             {{ body }}
           </p>
+
+          <!-- Komentar Like -->
+
+          <div class="pb-10">
+            <div class="pt-4">
+              <div class="mb-2">
+                <div class="flex items-center">
+                  <span
+                    class="mr-16 ml-3 inline-flex items-center cursor-pointer"
+                    @click="addLike"
+                  >
+                    <svg
+                      class="
+                        fill-heart
+                        text-gray-700
+                        inline-block
+                        h-7
+                        w-7
+                        heart
+                      "
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="mr-3 inline-flex items-center cursor-pointer">
+                    <svg
+                      class="text-gray-700 inline-block h-7 w-7"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <span class="text-gray-600 text-sm font-bold ml-1 mr-9"
+                  >{{ likes }} Likes</span
+                >
+                <span class="text-gray-600 text-sm font-bold">26 Comment</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="w-full mb-15 lg:w-1/4 m-auto mt-12 max-w-screen-sm">
@@ -114,13 +172,15 @@
         </div>
       </div>
     </main>
+
     <!-- main ends here -->
   </div>
 </template>
 
 <script>
 import { useRoute } from "vue-router";
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   async setup() {
@@ -128,6 +188,8 @@ export default {
       title: "",
       body: "",
     });
+
+    const store = useStore();
 
     const url = useRoute();
     const id = url.params.id;
@@ -140,7 +202,15 @@ export default {
     data.title = title;
     data.body = body;
 
-    return { ...toRefs(data) };
+    const addLike = () => {
+      store.commit("increment");
+    };
+
+    const likes = computed(() => {
+      return store.state.totalLike;
+    });
+
+    return { ...toRefs(data), addLike, likes };
   },
 };
 </script>

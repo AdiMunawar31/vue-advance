@@ -3,18 +3,33 @@
     <div class="flex flex-col p-2 py-6 m-h-screen">
       <Search />
       <div class="flex flex-col gap-4 lg:p-4 p-2 rounde-lg m-2">
-        <div
-          class="
-            lg:text-2xl
-            md:text-xl
-            text-lg
-            lg:p-3
-            p-1
-            font-black
-            text-gray-700
-          "
-        >
-          Post Data List
+        <div class="md:flex block md:justify-between">
+          <h1
+            class="
+              lg:text-2xl
+              md:text-xl
+              text-lg
+              lg:p-3
+              p-1
+              font-black
+              text-gray-700
+            "
+          >
+            Post Data List
+          </h1>
+          <p
+            class="
+              lg:text-lg
+              md:text-lg
+              text-sm
+              lg:p-3
+              p-1
+              font-black
+              text-gray-700
+            "
+          >
+            Total Likes : {{ likes }}
+          </p>
         </div>
 
         <!-- CARD LIST -->
@@ -81,7 +96,8 @@
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed } from "vue";
+import { useStore } from "vuex";
 import Search from "./Search.vue";
 
 export default {
@@ -91,10 +107,16 @@ export default {
       list: [],
     });
 
+    const store = useStore();
+
+    const likes = computed(() => {
+      return store.state.totalLike;
+    });
+
     const result = await fetch("https://jsonplaceholder.typicode.com/posts");
     data.list = await result.json();
 
-    return { ...toRefs(data) };
+    return { ...toRefs(data), likes };
   },
 };
 </script>

@@ -167,9 +167,8 @@ import { ref } from "vue";
 
 export default {
   setup() {
-    const route = useRouter();
-
     const name = ref("");
+    const route = useRouter();
 
     const logout = () => {
       localStorage.setItem("LOGIN", false);

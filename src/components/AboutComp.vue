@@ -17,6 +17,7 @@
           class="h-40 w-40 object-cover rounded-full"
         />
         <h1 class="text-2xl font-semibold">Adi Munawartzy</h1>
+
         <h4 class="text-sm font-semibold">{{ data.title }}</h4>
       </div>
     </div>
