@@ -30,7 +30,6 @@
           <router-link to="/about">About Adi</router-link>
         </div>
       </div>
-      <pre class="flex flex-wrap justify-center text-xs">{{ credential }}</pre>
     </div>
   </div>
 </template>
@@ -48,7 +47,7 @@ export default {
       return store.state.credential;
     });
 
-    const user = localStorage.getItem("NAME");
+    const user = sessionStorage.getItem("NAME");
     name.value = user;
 
     const title = computed(() => {
