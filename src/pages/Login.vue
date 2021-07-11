@@ -80,7 +80,7 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
@@ -90,7 +90,7 @@ export default {
 
     const name = ref("");
 
-    const login = () => {
+    const login = computed(() => {
       if (name.value == "") {
         Swal.fire({
           title: "<strong>Please, Input Your Name</strong>",
@@ -107,7 +107,7 @@ export default {
           cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
           cancelButtonAriaLabel: "Thumbs down",
         });
-        return false;
+        route.push({ name: "Login" });
       } else {
         sessionStorage.setItem("LOGIN", true);
         sessionStorage.setItem("NAME", name.value);
@@ -117,7 +117,7 @@ export default {
 
         route.push({ name: "Home" });
       }
-    };
+    });
 
     return { login, name };
   },
