@@ -48,7 +48,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isLogin = JSON.parse(localStorage.getItem("LOGIN"));
+  const isLogin = JSON.parse(sessionStorage.getItem("LOGIN"));
 
   if (to.name !== "Login" && !isLogin) next({ name: "Login" });
   if (to.name === "Login" && isLogin) next({ name: "Home" });

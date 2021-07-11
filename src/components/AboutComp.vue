@@ -17,8 +17,9 @@
           class="h-40 w-40 object-cover rounded-full"
         />
         <h1 class="text-2xl font-semibold">Adi Munawartzy</h1>
-
-        <h4 class="text-sm font-semibold">{{ data.title }}</h4>
+        <keep-alive>
+          <h4 class="text-sm font-semibold">{{ title }}</h4>
+        </keep-alive>
       </div>
     </div>
     <div class="grid grid-cols-12 bg-white">
@@ -265,16 +266,18 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   async setup() {
-    const data = ref("");
+    const store = useStore();
 
-    const result = await fetch("https://jsonplaceholder.typicode.com/posts/26");
-    data.value = await result.json();
+    const title = computed(() => {
+      return store.state.title;
+    });
 
-    return { data };
+    return { title };
   },
 };
 </script>

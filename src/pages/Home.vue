@@ -1,9 +1,9 @@
 <template>
   <Suspense>
     <template #default>
-      <keep-alive>
+    
         <HomeComp />
-      </keep-alive>
+      
     </template>
 
     <template #fallback>

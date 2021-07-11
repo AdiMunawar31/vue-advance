@@ -5,7 +5,9 @@
         Welcome To My Website "{{ name }}"
       </div>
       <div class="text-xl font-normal mt-4">
-        {{ data.title }}
+        <keep-alive>
+          {{ title }}
+        </keep-alive>
       </div>
       <div class="mt-6 flex justify-center h-12 relative">
         <div
@@ -39,7 +41,6 @@ import { useStore } from "vuex";
 
 export default {
   async setup() {
-    const data = ref("");
     const name = ref("");
 
     const store = useStore();
@@ -50,10 +51,11 @@ export default {
     const user = localStorage.getItem("NAME");
     name.value = user;
 
-    const result = await fetch("https://jsonplaceholder.typicode.com/posts/42");
-    data.value = await result.json();
+    const title = computed(() => {
+      return store.state.title;
+    });
 
-    return { data, name, credential };
+    return { title, name, credential };
   },
 };
 </script>

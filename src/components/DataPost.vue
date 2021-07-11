@@ -33,61 +33,63 @@
         </div>
 
         <!-- CARD LIST -->
-        <ul v-for="(item, index) in list" :key="index">
-          <router-link :to="`/post/${item.id}`">
-            <li>
-              <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  w-full
-                  p-2
-                  lg:rounded-full
-                  md:rounded-full
-                  hover:bg-gray-100
-                  cursor-pointer
-                  border-2
-                  shadow
-                  rounded-lg
-                "
-              >
-                <div class="lg:flex md:flex items-center">
-                  <i class="fas fa-database text-3xl text-blue-700 p-2"></i>
+        <keep-alive>
+          <ul v-for="(item, index) in data" :key="index">
+            <router-link :to="`/post/${item.id}`">
+              <li>
+                <div
+                  class="
+                    flex
+                    items-center
+                    justify-between
+                    w-full
+                    p-2
+                    lg:rounded-full
+                    md:rounded-full
+                    hover:bg-gray-100
+                    cursor-pointer
+                    border-2
+                    shadow
+                    rounded-lg
+                  "
+                >
+                  <div class="lg:flex md:flex items-center">
+                    <i class="fas fa-database text-3xl text-blue-700 p-2"></i>
 
-                  <div class="flex flex-col">
-                    <div
-                      class="text-sm leading-3 text-gray-700 font-bold w-full"
-                    >
-                      {{ item.title }}
+                    <div class="flex flex-col">
+                      <div
+                        class="text-sm leading-3 text-gray-700 font-bold w-full"
+                      >
+                        {{ item.title }}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <svg
-                  class="
-                    h-6
-                    w-6
-                    mr-1
-                    invisible
-                    md:visible
-                    lg:visible
-                    xl:visible
-                  "
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-            </li>
-          </router-link>
-        </ul>
+                  <svg
+                    class="
+                      h-6
+                      w-6
+                      mr-1
+                      invisible
+                      md:visible
+                      lg:visible
+                      xl:visible
+                    "
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </li>
+            </router-link>
+          </ul>
+        </keep-alive>
 
         <!-- END CARD LIST -->
       </div>
@@ -103,9 +105,9 @@ import Search from "./Search.vue";
 export default {
   components: { Search },
   async setup() {
-    const data = reactive({
-      list: [],
-    });
+    // const data = reactive({
+    //   list: [],
+    // });
 
     const store = useStore();
 
@@ -113,10 +115,14 @@ export default {
       return store.state.totalLike;
     });
 
-    const result = await fetch("https://jsonplaceholder.typicode.com/posts");
-    data.list = await result.json();
+    const data = computed(() => {
+      return store.state.posts;
+    });
 
-    return { ...toRefs(data), likes };
+    // const postDetail = computed(() => {
+    //   store.dispatch("getPostDetail");
+    // });
+    return { data, likes };
   },
 };
 </script>

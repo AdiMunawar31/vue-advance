@@ -75,12 +75,12 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, sign Out it!",
+        confirmButtonText: "Yes, Sign Out!",
       }).then((result) => {
         if (result.isConfirmed) {
           route.push({ name: "Login" });
-          localStorage.setItem("LOGIN", false);
-          localStorage.setItem("NAME", name.value);
+          sessionStorage.setItem("LOGIN", false);
+          sessionStorage.setItem("NAME", name.value);
           Swal.fire("Sign Out Success!", "Your has been Sign Out.", "success");
         } else {
           return false;

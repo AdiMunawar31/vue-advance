@@ -82,6 +82,7 @@
           About Adi
         </router-link>
         <router-link
+          @click="post"
           to="/post"
           class="
             flex
@@ -163,11 +164,14 @@
 <script>
 import { useRouter } from "vue-router";
 import { ref, computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   setup() {
     const name = ref("");
     const route = useRouter();
+
+    const store = useStore();
 
     const logout = () => {
       Swal.fire({
@@ -182,23 +186,19 @@ export default {
         if (result.isConfirmed) {
           route.push({ name: "Login" });
           Swal.fire("Sign Out Success!", "Your has been Sign Out.", "success");
-          localStorage.setItem("LOGIN", false);
-          localStorage.setItem("NAME", name.value);
+          sessionStorage.setItem("LOGIN", false);
+          sessionStorage.setItem("NAME", name.value);
         } else {
           return false;
         }
       });
-
-      // if (isLogout) {
-      //   route.push({ name: "Login" });
-      // } else {
-      //   return false;
-      // }
     };
 
-    const nav = computed(() => {});
+    const post = computed(() => {
+      store.dispatch("getPosts");
+    });
 
-    return { logout, name };
+    return { logout, name, post };
   },
 };
 </script>

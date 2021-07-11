@@ -92,12 +92,27 @@ export default {
 
     const login = () => {
       if (name.value == "") {
-        Swal.fire("Please Input Your Name!");
+        Swal.fire({
+          title: "<strong>Please, Input Your Name</strong>",
+          icon: "error",
+          html:
+            "You can use <b>bold text</b>, " +
+            '<a href="//sweetalert2.github.io">links</a> ' +
+            "and other HTML tags",
+          showCloseButton: true,
+          showCancelButton: true,
+          focusConfirm: false,
+          confirmButtonText: '<i class="fa fa-thumbs-up"></i> Error',
+          confirmButtonAriaLabel: "Thumbs up, Error",
+          cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+          cancelButtonAriaLabel: "Thumbs down",
+        });
       } else {
-        localStorage.setItem("LOGIN", true);
-        localStorage.setItem("NAME", name.value);
+        sessionStorage.setItem("LOGIN", true);
+        sessionStorage.setItem("NAME", name.value);
 
         store.dispatch("getCredential");
+        store.dispatch("getTitle");
 
         route.push({ name: "Home" });
       }
