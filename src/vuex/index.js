@@ -8,8 +8,14 @@ export const store = createStore({
       credential: {},
       title: "",
       posts: {},
+      comment: 0,
       // postDetail: {},
     };
+  },
+  getters: {
+    fakeComment(state) {
+      return state.comment + 2631;
+    },
   },
   mutations: {
     increment(state) {

@@ -107,6 +107,7 @@ export default {
           cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
           cancelButtonAriaLabel: "Thumbs down",
         });
+        return false;
       } else {
         sessionStorage.setItem("LOGIN", true);
         sessionStorage.setItem("NAME", name.value);

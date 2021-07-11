@@ -130,11 +130,11 @@
                       </svg>
                     </span>
                   </div>
-                  <span class="text-gray-600 text-sm font-bold ml-1 mr-9"
+                  <span class="text-gray-600 text-sm font-bold ml-1 mr-6"
                     >{{ likes }} Likes</span
                   >
                   <span class="text-gray-600 text-sm font-bold"
-                    >26 Comment</span
+                    >{{ fakeComment }} Comment</span
                   >
                 </div>
               </div>
@@ -215,8 +215,11 @@ export default {
     const likes = computed(() => {
       return store.state.totalLike;
     });
+    const fakeComment = computed(() => {
+      return store.getters.fakeComment;
+    });
 
-    return { ...toRefs(data), addLike, likes };
+    return { ...toRefs(data), addLike, likes, fakeComment };
   },
 };
 </script>
